@@ -4,7 +4,7 @@ public class Runner {
 
 	public static void main(String[] args) {
 		
-		Person s1=new Student("Yogesh", 31, "Pune", "9988776655", 123, 90, 80, 85);
+		/*Person s1=new Student("Yogesh", 31, "Pune", "9988776655", 123, 90, 80, 85);
 		Person s2=new Student("Yogesh", 31, "Pune", "9988776655", 123, 90, 80, 85);
 		Person s3=new Student("Yogesh", 31, "Pune", "9988776655", 123, 90, 80, 85);
 		((Student)s1).calculateTotalMarks();
@@ -24,7 +24,7 @@ public class Runner {
 		
 		System.out.println("Total students enrolled :"+Student.getTotalStudentsCount());
 		System.out.println("Total Teachers enrolled :"+Teacher.getTotalTeachersCount());
-		System.out.println("Total population in school :"+Person.getTotoalPersonCount());
+		System.out.println("Total population in school :"+Person.getTotoalPersonCount());*/
 	}
 
 }

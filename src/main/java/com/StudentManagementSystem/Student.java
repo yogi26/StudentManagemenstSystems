@@ -4,44 +4,26 @@ import java.util.Objects;
 
 public class Student extends Person {
 	private static int totalStudentsCount;
-	private int rollNumber;
-	private double marksObtainedInEnglish;
-	private double marksObtainedInMaths;
-	private double marksObtainedInScience;
+	private final int rollNumber;
+	private final double marksObtainedInEnglish;
+	private final double marksObtainedInMaths;
+	private final double marksObtainedInScience;
 	private String grade;
 	private double percentage;
-	private double totalMarks;
+	private final double totalMarks;
 
-	public Student(String name, int age, String address, String phoneNumber, int rollNumber,
-			double marksObtainedInEnglish, double marksObtainedInMaths, double marksObtainedInScience) {
-		super(name, age, address, phoneNumber);
-		if (validateAge(age) && validateRollNo(rollNumber) && validateMarks(marksObtainedInEnglish)
-				&& validateMarks(marksObtainedInMaths) && validateMarks(marksObtainedInScience)
-				&& validatePhoneNumber(phoneNumber) && validateAddress(address)) {
 
-			this.rollNumber = rollNumber;
-			this.marksObtainedInEnglish = marksObtainedInEnglish;
-			this.marksObtainedInMaths = marksObtainedInMaths;
-			this.marksObtainedInScience = marksObtainedInScience;
-			totalStudentsCount++;
-		}
-	}
+	public Student(StudentBuilder studentBuilder) {
+		super(studentBuilder.name, studentBuilder.age, studentBuilder.address, studentBuilder.phoneNumber);
+		this.rollNumber = studentBuilder.rollNumber;
+		this.marksObtainedInEnglish = studentBuilder.marksObtainedInEnglish;
+		this.marksObtainedInMaths = studentBuilder.marksObtainedInMaths;
+		this.marksObtainedInScience = studentBuilder.marksObtainedInScience;
+		this.totalMarks = calculateTotalMarks();
+		this.percentage = calculatePercentage();
+		this.grade = calculateGrade();
+		totalStudentsCount++;
 
-	public boolean validateAge(int age) {
-		if (age >= 6 && age <= 100) {
-			return true;
-		} else {
-			System.err.println("Invalid age");
-			return false;
-		}
-	}
-
-	public void setAge(int age) {
-		if (age >= 6 && age <= 100) {
-			this.age = age;
-		} else {
-			System.out.println("Invalid age");
-		}
 	}
 
 	public boolean rollNumber() {
@@ -57,89 +39,40 @@ public class Student extends Person {
 		return rollNumber;
 	}
 
-	
-	public boolean validateRollNo(int rollNumber) {
-		if (rollNumber >= 0 && rollNumber <= 1000) {
-			return true;
-		} else {
-			System.err.println("Invalid roll number");
-			return false;
-		}
-	}
-
-	public void setRollNumber(int rollNumber) {
-		if (rollNumber >= 0 && rollNumber <= 1000) {
-			this.rollNumber = rollNumber;
-		} else {
-			System.out.println("Invalid roll number");
-		}
-	}
-
 	public double getMarksObtainedInEnglish() {
 		return marksObtainedInEnglish;
-	}
-
-	public boolean validateMarks(double marks) {
-		if (marks >= 0 && marks <= 100) {
-			return true;
-		} else {
-			System.err.println("Invalid Marks entered");
-			return false;
-		}
-	}
-
-	public void setMarksObtainedInEnglish(double marksObtainedInEnglish) {
-		if (marksObtainedInEnglish >= 0 && marksObtainedInEnglish <= 100) {
-			this.marksObtainedInEnglish = marksObtainedInEnglish;
-		} else {
-			System.out.println("Please enter marks between 0 to 100");
-		}
-
 	}
 
 	public double getMarksObtainedInMaths() {
 		return marksObtainedInMaths;
 	}
 
-	public void setMarksObtainedInMaths(double marksObtainedInMaths) {
-		if (marksObtainedInMaths >= 0 && marksObtainedInMaths <= 100) {
-			this.marksObtainedInMaths = marksObtainedInMaths;
-		} else {
-			System.out.println("Please enter marks between 0 to 100");
-		}
-	}
-
 	public double getMarksObtainedInScience() {
 		return marksObtainedInScience;
-	}
-
-	public void setMarksObtainedInScience(double marksObtainedInScience) {
-		if (marksObtainedInScience >= 0 && marksObtainedInScience <= 100) {
-			this.marksObtainedInScience = marksObtainedInScience;
-		} else {
-			System.out.println("Please enter marks between 0 to 100");
-		}
 	}
 
 	public String getGrade() {
 		return grade;
 	}
 
-	public void calculateTotalMarks() {
-		totalMarks = marksObtainedInEnglish + marksObtainedInMaths + marksObtainedInScience;
+	public double calculateTotalMarks() {
+		double totalMarks = marksObtainedInEnglish + marksObtainedInMaths + marksObtainedInScience;
+		return totalMarks;
 	}
 
-	public void calculatePercentage() {
-		percentage = totalMarks / 3.0;
+	public double calculatePercentage() {
+		double percentage = totalMarks / 3.0;
+		return percentage;
 	}
 
-	public void calculateGrade() {
-
-		if(percentage==0) {
-			grade="Cannot be calculated";
-		}else {
-			grade=GradePolicy.calculateGrade(percentage);
+	public String calculateGrade() {
+		String grade;
+		if (percentage == 0) {
+			grade = "Cannot be calculated";
+		} else {
+			grade = GradePolicy.calculateGrade(percentage);
 		}
+		return grade;
 	}
 
 	public void showStudentDetails() {
@@ -192,52 +125,147 @@ public class Student extends Person {
 				&& Objects.equals(phoneNumber, other.phoneNumber) && rollNumber == other.rollNumber
 				&& Double.doubleToLongBits(totalMarks) == Double.doubleToLongBits(other.totalMarks);
 	}
+
 	public boolean updateInformation(String newAdderess, String newPhoneNumber) {
-		if(parentApproval()) {
-			if(super.updateInformation(newAdderess, newPhoneNumber)) {
+		if (parentApproval()) {
+			if (super.updateInformation(newAdderess, newPhoneNumber)) {
 				System.out.println("Notifying to Parent that info is upadated");
 				return true;
 			}
-			return false;	
-		}
-		else {
+			return false;
+		} else {
 			System.err.println("No approval from parent");
 			return false;
 		}
-		
+
 	}
+
 	public boolean updateInformation(String newAdderess) {
-		if(parentApproval()) {
-			if(super.updateInformation(newAdderess)) {
+		if (parentApproval()) {
+			if (super.updateInformation(newAdderess)) {
 				System.out.println("Notifying to Parent that info is upadated");
 				return true;
 			}
-			return false;	
-		}
-		else {
+			return false;
+		} else {
 			System.err.println("No approval from parent");
 			return false;
 		}
-		
+
 	}
+
 	public boolean updateInformation(String newPhoneNumber, boolean update) {
-		if(parentApproval()) {
-			if(super.updateInformation(newPhoneNumber, update)) {
+		if (parentApproval()) {
+			if (super.updateInformation(newPhoneNumber, update)) {
 				System.out.println("Notifying to Parent that info is upadated");
 				return true;
 			}
-			return false;	
-		}
-		else {
+			return false;
+		} else {
 			System.err.println("No approval from parent");
 			return false;
 		}
-		
+
 	}
+
 	private boolean parentApproval() {
 		return true;
 	}
+
 	public static int getTotalStudentsCount() {
 		return totalStudentsCount;
+	}
+
+	public static class StudentBuilder {
+
+		private int rollNumber;
+		private double marksObtainedInEnglish;
+		private double marksObtainedInMaths;
+		private double marksObtainedInScience;
+
+		protected String name;
+		protected int age;
+		protected String address;
+		protected String phoneNumber;
+
+		public StudentBuilder(String name, int age, String address, String phoneNumber) {
+			if (validateAge(age) && validateRollNo(rollNumber) && validateMarks(marksObtainedInEnglish)
+					&& validateMarks(marksObtainedInMaths) && validateMarks(marksObtainedInScience)
+					&& validatePhoneNumber(phoneNumber) && validateAddress(address)) {
+				this.name = name;
+				this.age = age;
+				this.address = address;
+				this.phoneNumber = phoneNumber;
+			}
+		}
+
+		public StudentBuilder withSetRollNumber(int rollNumber) {
+			this.rollNumber = rollNumber;
+			return this;
+		}
+
+		public StudentBuilder withSetMarksObtainedInEnglish(double marksObtainedInEnglish) {
+			this.marksObtainedInEnglish = marksObtainedInEnglish;
+			return this;
+		}
+
+		public StudentBuilder withSetMarksObtainedInMaths(double marksObtainedInMaths) {
+			this.marksObtainedInMaths = marksObtainedInMaths;
+			return this;
+		}
+
+		public StudentBuilder withSetMarksObtainedInScience(double marksObtainedInScience) {
+			this.marksObtainedInScience = marksObtainedInScience;
+			return this;
+		}
+
+		public boolean validateAge(int age) {
+			if (age >= 6 && age <= 100) {
+				return true;
+			} else {
+				System.err.println("Invalid age");
+				return false;
+			}
+		}
+
+		public boolean validateRollNo(int rollNumber) {
+			if (rollNumber >= 0 && rollNumber <= 1000) {
+				return true;
+			} else {
+				System.err.println("Invalid roll number");
+				return false;
+			}
+		}
+
+		public boolean validateMarks(double marks) {
+			if (marks >= 0 && marks <= 100) {
+				return true;
+			} else {
+				System.err.println("Invalid Marks entered");
+				return false;
+			}
+		}
+
+		protected boolean validatePhoneNumber(String phoneNumber) {
+			if (phoneNumber.matches("\\d{10}")) {
+				return true;
+			} else {
+				System.err.println("Invalid phone number");
+				return false;
+			}
+		}
+
+		protected boolean validateAddress(String address) {
+			if (!address.isEmpty() || address == null) {
+				return true;
+			} else {
+				System.err.println("Invalid address");
+				return false;
+			}
+		}
+
+		public Student buld() {
+			return new Student(this);
+		}
 	}
 }

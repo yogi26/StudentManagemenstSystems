@@ -29,11 +29,7 @@ public class Person {
 	public String getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
-		if(validateAddress(address)) {
-			this.address = address;
-		}
-	}
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -42,22 +38,7 @@ public class Person {
 			this.phoneNumber=phoneNumber;
 		}
 	}
-	protected boolean validatePhoneNumber(String phoneNumber) {
-		if(phoneNumber.matches("\\d{10}")) {
-			return true;
-		}else {
-			System.err.println("Invalid phone number");
-			return false;
-		}
-	}
-	protected boolean validateAddress(String address) {
-		if(!address.isEmpty()||address==null) {
-			return true;
-		}else {
-			System.err.println("Invalid address");
-			return false;
-		}
-	}
+	
 
 	public boolean updateInformation(String newAdderess, String newPhoneNumber) {
 		if(validateAddress(newAdderess)&&validatePhoneNumber(newPhoneNumber)) {
@@ -89,5 +70,22 @@ public class Person {
 	}
 	public static int getTotoalPersonCount() {
 		return totalPersonCount;
+	}
+	protected boolean validatePhoneNumber(String phoneNumber) {
+		if (phoneNumber.matches("\\d{10}")) {
+			return true;
+		} else {
+			System.err.println("Invalid phone number");
+			return false;
+		}
+	}
+
+	protected boolean validateAddress(String address) {
+		if (!address.isEmpty() || address == null) {
+			return true;
+		} else {
+			System.err.println("Invalid address");
+			return false;
+		}
 	}
 }

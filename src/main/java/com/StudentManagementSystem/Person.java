@@ -1,11 +1,13 @@
 package com.StudentManagementSystem;
 
-public class Person {
+public abstract class Person {
+	
 	private static int totalPersonCount;
 	protected String name;
 	protected int age;
 	protected String address;
 	protected String phoneNumber;
+	
 	public Person(String name, int age, String address, String phoneNumber) {
 		super();
 		this.name = name;

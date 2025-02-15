@@ -2,7 +2,7 @@ package com.StudentManagementSystem;
 
 import java.util.Objects;
 
-public class Student extends Person {
+public final class Student extends Person {
 	private static int totalStudentsCount;
 	private final int rollNumber;
 	private final double marksObtainedInEnglish;
@@ -55,17 +55,17 @@ public class Student extends Person {
 		return grade;
 	}
 
-	public double calculateTotalMarks() {
+	public final double calculateTotalMarks() {
 		double totalMarks = marksObtainedInEnglish + marksObtainedInMaths + marksObtainedInScience;
 		return totalMarks;
 	}
 
-	public double calculatePercentage() {
+	public final double calculatePercentage() {
 		double percentage = totalMarks / 3.0;
 		return percentage;
 	}
 
-	public String calculateGrade() {
+	public final String calculateGrade() {
 		String grade;
 		if (percentage == 0) {
 			grade = "Cannot be calculated";
@@ -219,7 +219,7 @@ public class Student extends Person {
 			return this;
 		}
 
-		public boolean validateAge(int age) {
+		public final boolean validateAge(int age) {
 			if (age >= 6 && age <= 100) {
 				return true;
 			} else {
@@ -228,7 +228,7 @@ public class Student extends Person {
 			}
 		}
 
-		public boolean validateRollNo(int rollNumber) {
+		public final boolean validateRollNo(int rollNumber) {
 			if (rollNumber >= 0 && rollNumber <= 1000) {
 				return true;
 			} else {
@@ -237,7 +237,7 @@ public class Student extends Person {
 			}
 		}
 
-		public boolean validateMarks(double marks) {
+		public final boolean validateMarks(double marks) {
 			if (marks >= 0 && marks <= 100) {
 				return true;
 			} else {
@@ -246,7 +246,7 @@ public class Student extends Person {
 			}
 		}
 
-		protected boolean validatePhoneNumber(String phoneNumber) {
+		protected final boolean validatePhoneNumber(String phoneNumber) {
 			if (phoneNumber.matches("\\d{10}")) {
 				return true;
 			} else {
@@ -255,7 +255,7 @@ public class Student extends Person {
 			}
 		}
 
-		protected boolean validateAddress(String address) {
+		protected final boolean validateAddress(String address) {
 			if (!address.isEmpty() || address == null) {
 				return true;
 			} else {

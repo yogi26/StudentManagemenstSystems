@@ -25,10 +25,6 @@ public class Teacher extends Person{
 		return empID;
 	}
 
-	public void setEmpID(String empID) {
-		this.empID = empID;
-	}
-
 	public String getSubject() {
 		return subject;
 	}
@@ -49,7 +45,7 @@ public class Teacher extends Person{
 		return salary;
 	}
 
-	public void calculateSalary() {
+	public final void calculateSalary() {
 		salary=BASE_SALARY+yearsOfExperience*EXPERIENCE_BONUS;
 	}
 

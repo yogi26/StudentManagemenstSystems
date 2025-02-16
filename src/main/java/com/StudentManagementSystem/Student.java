@@ -2,26 +2,24 @@ package com.StudentManagementSystem;
 
 import java.util.Objects;
 
-public final class Student extends Person {
+public abstract class Student extends Person {
 	private static int totalStudentsCount;
 	private final int rollNumber;
 	private final double marksObtainedInEnglish;
 	private final double marksObtainedInMaths;
 	private final double marksObtainedInScience;
-	private String grade;
-	private double percentage;
-	private final double totalMarks;
+	protected String grade;
+	protected double percentage;
+	protected final double totalMarks;
 
 
-	public Student(StudentBuilder studentBuilder) {
+	protected Student(StudentBuilder studentBuilder) {
 		super(studentBuilder.name, studentBuilder.age, studentBuilder.address, studentBuilder.phoneNumber);
 		this.rollNumber = studentBuilder.rollNumber;
 		this.marksObtainedInEnglish = studentBuilder.marksObtainedInEnglish;
 		this.marksObtainedInMaths = studentBuilder.marksObtainedInMaths;
 		this.marksObtainedInScience = studentBuilder.marksObtainedInScience;
 		this.totalMarks = calculateTotalMarks();
-		this.percentage = calculatePercentage();
-		this.grade = calculateGrade();
 		totalStudentsCount++;
 
 	}
@@ -60,10 +58,7 @@ public final class Student extends Person {
 		return totalMarks;
 	}
 
-	public final double calculatePercentage() {
-		double percentage = totalMarks / 3.0;
-		return percentage;
-	}
+	public abstract double calculatePercentage();
 
 	public final String calculateGrade() {
 		String grade;
@@ -176,7 +171,7 @@ public final class Student extends Person {
 		return totalStudentsCount;
 	}
 
-	public static class StudentBuilder {
+	public abstract static class StudentBuilder {
 
 		private int rollNumber;
 		private double marksObtainedInEnglish;
@@ -264,8 +259,6 @@ public final class Student extends Person {
 			}
 		}
 
-		public Student buld() {
-			return new Student(this);
-		}
+		public abstract Student bulid();
 	}
-}
+} 

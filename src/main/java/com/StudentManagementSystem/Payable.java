@@ -1,12 +1,11 @@
 package com.StudentManagementSystem;
 
 public interface Payable {
-	
+
 	public double calculatePayment();
-	
-	public default boolean processPayment(String paymentMode){
-		if (paymentMode.equalsIgnoreCase("cash") || paymentMode.equalsIgnoreCase("upi")
-				|| paymentMode.equalsIgnoreCase("card")) {
+
+	public default boolean processPayment(PaymentMode paymentMode) {
+		if (paymentMode == PaymentMode.CASH || paymentMode == PaymentMode.UPI || paymentMode == PaymentMode.CARD) {
 			System.out.println("Payment processiong via " + paymentMode + " ....");
 			System.out.println("Payment successful");
 			return true;
@@ -15,8 +14,8 @@ public interface Payable {
 			return false;
 		}
 	}
-	
+
 	public void generateReceipt();
-	
-	public double getDiscount() ;
+
+	public double getDiscount();
 }

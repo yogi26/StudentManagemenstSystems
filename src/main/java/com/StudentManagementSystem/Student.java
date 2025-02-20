@@ -1,6 +1,13 @@
 package com.StudentManagementSystem;
 
+import java.nio.InvalidMarkException;
 import java.util.Objects;
+
+import com.exception.handling.InvalidAddressException;
+import com.exception.handling.InvalidAgeException;
+import com.exception.handling.InvalidMarksException;
+import com.exception.handling.InvalidPhoneNumberException;
+import com.exception.handling.InvalidRollNumberException;
 
 public abstract class Student extends Person {
 	private static int totalStudentsCount;
@@ -218,8 +225,7 @@ public abstract class Student extends Person {
 			if (age >= 6 && age <= 100) {
 				return true;
 			} else {
-				System.err.println("Invalid age");
-				return false;
+				throw new InvalidAgeException("Invalid age", age);
 			}
 		}
 
@@ -227,8 +233,7 @@ public abstract class Student extends Person {
 			if (rollNumber >= 0 && rollNumber <= 1000) {
 				return true;
 			} else {
-				System.err.println("Invalid roll number");
-				return false;
+				throw new InvalidRollNumberException("Invalid roll number", rollNumber);
 			}
 		}
 
@@ -236,8 +241,7 @@ public abstract class Student extends Person {
 			if (marks >= 0 && marks <= 100) {
 				return true;
 			} else {
-				System.err.println("Invalid Marks entered");
-				return false;
+				throw new InvalidMarksException("Invalid Marks entered", marks);
 			}
 		}
 
@@ -245,8 +249,7 @@ public abstract class Student extends Person {
 			if (phoneNumber.matches("\\d{10}")) {
 				return true;
 			} else {
-				System.err.println("Invalid phone number");
-				return false;
+				throw new InvalidPhoneNumberException("Invalid phone number", phoneNumber);
 			}
 		}
 
@@ -254,8 +257,7 @@ public abstract class Student extends Person {
 			if (!address.isEmpty() || address == null) {
 				return true;
 			} else {
-				System.err.println("Invalid address");
-				return false;
+				throw new InvalidAddressException("Invalid address", address);
 			}
 		}
 

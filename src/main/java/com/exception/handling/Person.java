@@ -38,7 +38,7 @@ public class Person {
 			return true;
 		}else {
 			try {
-				throw new InvalidAgeException("Invalid age");
+				throw new InvalidAgeException("Invalid age", age);
 			}catch(InvalidAgeException e) {
 				e.printStackTrace();
 			}

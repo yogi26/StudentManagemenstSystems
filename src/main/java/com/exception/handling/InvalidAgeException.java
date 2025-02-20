@@ -1,9 +1,16 @@
 package com.exception.handling;
 
-public class InvalidAgeException extends Exception{
+public class InvalidAgeException extends RuntimeException{
 
-	public InvalidAgeException(String message) {
+	private int age;
+	
+	public InvalidAgeException(String message, int age) {
 		super(message);
+		this.age=age;
+	}
+	
+	public int getAge() {
+		return age;
 	}
 	
 }

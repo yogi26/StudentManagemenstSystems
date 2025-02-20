@@ -1,5 +1,9 @@
 package com.StudentManagementSystem;
 
+import com.exception.handling.InvalidAddressException;
+import com.exception.handling.InvalidAgeException;
+import com.exception.handling.InvalidPhoneNumberException;
+
 public abstract class Person {
 	
 	private static int totalPersonCount;
@@ -10,6 +14,7 @@ public abstract class Person {
 	
 	public Person(String name, int age, String address, String phoneNumber) {
 		super();
+		if(validateAge(age)&&validateAddress(address)&&validatePhoneNumber(phoneNumber))
 		this.name = name;
 		this.age = age;
 		this.address = address;
@@ -77,8 +82,7 @@ public abstract class Person {
 		if (phoneNumber.matches("\\d{10}")) {
 			return true;
 		} else {
-			System.err.println("Invalid phone number");
-			return false;
+			throw new InvalidPhoneNumberException("Invalid phone number", phoneNumber);
 		}
 	}
 
@@ -86,8 +90,14 @@ public abstract class Person {
 		if (!address.isEmpty() || address == null) {
 			return true;
 		} else {
-			System.err.println("Invalid address");
-			return false;
+			throw new InvalidAddressException("Invalid address", address);
+		}
+	}
+	protected boolean validateAge(int age) {
+		if (age>=6 && age<=60) {
+			return true;
+		} else {
+			throw new InvalidAgeException("Invalid address", age);
 		}
 	}
 }

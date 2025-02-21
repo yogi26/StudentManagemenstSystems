@@ -1,7 +1,9 @@
 package com.StudentManagementSystem;
 
-public class SportStudent extends Student{
+import java.io.Serializable;
 
+public class SportStudent extends Student implements Serializable{
+	static final long serialVersionUID = 1L;
 	private double sportsScore;
 	
 	protected SportStudent(StudentBuilder studentBuilder) {

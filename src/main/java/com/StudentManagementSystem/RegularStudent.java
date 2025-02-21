@@ -1,7 +1,9 @@
 package com.StudentManagementSystem;
 
-public class RegularStudent extends Student{
+import java.io.Serializable;
 
+public class RegularStudent extends Student implements Serializable{
+	static final long serialVersionUID = 1L;
 	protected RegularStudent(StudentBuilder studentBuilder) {
 		super(studentBuilder);
 		this.percentage = calculatePercentage();

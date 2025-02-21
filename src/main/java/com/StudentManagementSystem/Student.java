@@ -1,5 +1,6 @@
 package com.StudentManagementSystem;
 
+import java.io.Serializable;
 import java.nio.InvalidMarkException;
 import java.util.Objects;
 
@@ -9,7 +10,8 @@ import com.exception.handling.InvalidMarksException;
 import com.exception.handling.InvalidPhoneNumberException;
 import com.exception.handling.InvalidRollNumberException;
 
-public abstract class Student extends Person {
+public abstract class Student extends Person implements Serializable{
+	static final long serialVersionUID = 1L;
 	private static int totalStudentsCount;
 	private final int rollNumber;
 	private final double marksObtainedInEnglish;
